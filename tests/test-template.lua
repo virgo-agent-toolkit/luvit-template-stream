@@ -47,3 +47,18 @@ test('simple', nil, function(t)
 
   Source:new(tmpl):pipe(template):pipe(sink)
 end)
+
+test('missing key', nil, function(t)
+  local template = require('..')({foo = 'bar'})
+
+  local tmpl = 'foo == {{foo}}, haha == {{haha}}'
+  local expected = 'foo == bar, haha == '
+
+  local sink = Sink:new()
+  sink:once('finish', function()
+    t:equal(sink.text, expected, 'incorrect output from Template')
+    t:finish()
+  end)
+
+  Source:new(tmpl):pipe(template):pipe(sink)
+end)
