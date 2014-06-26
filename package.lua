@@ -3,7 +3,7 @@ return {
   version = "0.1.0",
   description = "a simple template package using stream-fs",
   repository = {
-    url = "https://github.com/virgo-agent-toolkit/luvit-template.git",
+    url = "https://github.com/virgo-agent-toolkit/luvit-template-stream.git",
   },
   author = {
     name = "Song Gao",
