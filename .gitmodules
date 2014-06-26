@@ -1,0 +1,6 @@
+[submodule "modules/tape"]
+	path = modules/tape
+	url = https://github.com/virgo-agent-toolkit/luvit-tape.git
+[submodule "modules/stream"]
+	path = modules/stream
+	url = https://github.com/virgo-agent-toolkit/luvit-stream.git
