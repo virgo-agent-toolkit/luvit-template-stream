@@ -52,7 +52,7 @@ test('missing key', nil, function(t)
   local template = require('..')({foo = 'bar'})
 
   local tmpl = 'foo == {{foo}}, haha == {{haha}}'
-  local expected = 'foo == bar, haha == '
+  local expected = 'foo == bar, haha == {{haha}}'
 
   local sink = Sink:new()
   sink:once('finish', function()
@@ -61,4 +61,19 @@ test('missing key', nil, function(t)
   end)
 
   Source:new(tmpl):pipe(template):pipe(sink)
+end)
+
+test('multiple context', nil, function(t)
+  local template1 = require('..')({var1 = 'one'})
+  local template2 = require('..')({var2 = 'two'})
+
+  local tmpl = '{{var1}} {{var2}} {{var3}}'
+  local expected = 'one two {{var3}}'
+  local sink = Sink:new()
+  sink:once('finish', function()
+    t:equal(sink.text, expected, 'incorrect output from Template')
+    t:finish()
+  end)
+
+  Source:new(tmpl):pipe(template1):pipe(template2):pipe(sink)
 end)
