@@ -12,7 +12,9 @@ end
 function Template:_transform(t, encoding, callback)
   callback(nil, string.gsub(t, '{{(%a[%w_]*)}}', function(k)
     if self.context[k] == nil then
-      return ''
+      -- keep the variable so that maybe it'll be replaced by a downstream
+      -- Template
+      return '{{' .. k .. '}}'
     end
     return tostring(self.context[k])
   end))
